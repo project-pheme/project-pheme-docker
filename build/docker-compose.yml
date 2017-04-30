@@ -1,0 +1,18 @@
+version: "2"
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: builder.Dockerfile
+    container_name: pheme-builder
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/build
+    command: /bin/sh /build/builder.sh
+    environment:
+      GIT_URL_PLATFORM: https://github.com/project-pheme/project-pheme-platform.git
+      GIT_URL_CLIENT: https://github.com/project-pheme/project-pheme-platform-client.git
+      GIT_URL_INTERFACE: https://github.com/project-pheme/project-pheme-data-interface.git
+      TX_USERNAME: ${TX_USERNAME}
+      TX_PASSWORD: ${TX_PASSWORD}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}

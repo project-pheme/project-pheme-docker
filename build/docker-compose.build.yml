@@ -1,0 +1,36 @@
+version: "2"
+services:
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    image: pheme_mysql:latest
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+      args:
+        BUILD_TAG: pheme
+    image: pheme_nginx:latest
+  api:
+    build:
+      context: .
+      dockerfile: ./platform/Dockerfile
+      args:
+        BUILD_TAG: pheme
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    image: pheme_api:latest
+  data_interface:
+    build:
+      context: build/data-interface
+      dockerfile: Dockerfile
+    image: pheme_data_interface:latest
+  # capture_api:
+  #   build:
+  #     context: ./capture_api
+  #   restart: always
+  #   environment:
+  #     AUTOSSH_PORT: 0
+  #   command: {user}@{ssh_host} -L 0.0.0.0:7080:{capture_host}:8080
+  #   ports:
+  #     - "7080:7080"

@@ -1,0 +1,40 @@
+version: "2"
+services:
+  mysql:
+    image: pheme_mysql:latest
+    environment:
+      MYSQL_DATABASE: ushahidi
+      MYSQL_USER: ushahidi
+      MYSQL_PASSWORD: ushahidi
+    ports:
+      - 127.0.0.1:3306:3306
+  nginx:
+    image: pheme_nginx:latest
+    environment:
+      API_HOST: api
+      API_PORT: '9000'
+    ports:
+      - 80:80
+  api:
+    image: pheme_api:latest
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: ushahidi
+      MYSQL_USER: ushahidi
+      MYSQL_PASSWORD: ushahidi
+  data_interface:
+    image: pheme_data_interface:latest
+    ports:
+      - 127.0.0.1:8888:8888
+    environment:
+      PLATFORM_HOST: nginx
+      PLATFORM_PORT: 80
+      CAPTURE_HOST: gatezkt1
+      CAPTURE_PORT: 8080
+      USH_USERNAME: demo@ushahidi.com
+      USH_PASSWORD: fp7Pheme
+      STATE_DIR_PATH: /state
+      THEME_PULL_PERIOD: 30
+      THEME_PULL_CHUNK_SIZE: 32
+    volumes:
+      - /var/run/pheme_store:/state
