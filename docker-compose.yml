@@ -22,14 +22,14 @@ services:
       MYSQL_DATABASE: ushahidi
       MYSQL_USER: ushahidi
       MYSQL_PASSWORD: ushahidi
-  data_interface:
+  pheme_store:
     image: pheme_data_interface:latest
     ports:
       - 127.0.0.1:8888:8888
     environment:
       PLATFORM_HOST: nginx
       PLATFORM_PORT: 80
-      CAPTURE_HOST: gatezkt1
+      CAPTURE_HOST: gatezkt1.dcs.shef.ac.uk
       CAPTURE_PORT: 8080
       USH_USERNAME: demo@ushahidi.com
       USH_PASSWORD: fp7Pheme
