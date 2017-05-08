@@ -8,6 +8,7 @@ services:
       MYSQL_PASSWORD: ushahidi
     ports:
       - 127.0.0.1:3306:3306
+    restart: unless-stopped
   nginx:
     image: pheme_nginx:latest
     environment:
@@ -15,6 +16,7 @@ services:
       API_PORT: '9000'
     ports:
       - 80:80
+    restart: unless-stopped
   api:
     image: pheme_api:latest
     environment:
@@ -22,6 +24,7 @@ services:
       MYSQL_DATABASE: ushahidi
       MYSQL_USER: ushahidi
       MYSQL_PASSWORD: ushahidi
+    restart: unless-stopped
   pheme_store:
     image: pheme_data_interface:latest
     ports:
@@ -38,3 +41,5 @@ services:
       THEME_PULL_CHUNK_SIZE: 32
     volumes:
       - /var/run/pheme_store:/state
+    restart: unless-stopped
+
