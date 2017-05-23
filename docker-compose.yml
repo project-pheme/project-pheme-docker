@@ -36,6 +36,7 @@ services:
       CAPTURE_PORT: 8080
       USH_USERNAME: demo@ushahidi.com
       USH_PASSWORD: fp7Pheme
+      GRAPHDB_ENDPOINT: "http://pheme.ontotext.com/repositories/pheme"
       STATE_DIR_PATH: /state
       THEME_PULL_PERIOD: 30
       THEME_PULL_CHUNK_SIZE: 32
